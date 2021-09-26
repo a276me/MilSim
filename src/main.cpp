@@ -12,6 +12,13 @@ int TIME = 0;
 std::vector<Division> divisions = {};
 
 
+void removeAndHeal(){
+	for(int i = divisions.size()-1; i>=0; i--){
+		if()
+	}
+}
+
+
 void fight(Division *a, Division *b){		// a is attacking, b is defending
 
 	a->engaged = true;
@@ -50,7 +57,7 @@ void findEngagements(){
 				}
 			}
 		if(!e){
-			division[i].engaged = false;
+			divisions[i].engaged = false;
 		}
 		}
 }
@@ -90,6 +97,7 @@ int main(){
 			for(int i=0;i<divisions.size(); i++){
 				std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<";\n";
 			}
+			removeAndHeal();
 			
 		
 

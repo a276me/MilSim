@@ -85,10 +85,7 @@ Vector2		Division::getPos(){
 Vector2		Division::getTarget(){
 	return target;
 }	
-		
-bool		Division::isEngaged(){
-	return engaged;
-}	
+			
 					
 void 		Division::setPos(Vector2 p){
 	position = p;
