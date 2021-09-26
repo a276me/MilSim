@@ -10,9 +10,9 @@ Divisions(师):
 		每当两个师的作战半径在某处重合那将引发战斗
 		行军速度将以最慢的营决定
 
-		团数量超过5，每多增加一个团将会减少20%组织力
+		团数量超过3，每多增加一个团将会减少20%组织力
 		每个团的强度值不能超过70
-		每个师的强度值不能超过600
+		每个师的强度值不能超过300
 
 Fighting(战斗):
 		each division will have a breakthrough value(attacking) and a defending value(defence)

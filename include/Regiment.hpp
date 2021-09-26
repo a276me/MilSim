@@ -15,7 +15,7 @@ class Regiment{
 
 public:
 	int type;
-	int battaltions;
+	int battalions;
 
 	double BBV;
 	double BDV;

@@ -1,27 +1,42 @@
 #include "Division.hpp"
+#include "Battalion.hpp"
 
 std::string Division::getName(){
 	return name;
 }	
 
-int 		Division::getType(){
+int Division::getType(){
 	return type;
 }	
 
-double		Division::getBD(){
-	return BD;
+double	Division::getBD(){
+	int S = 0;
+	for(int i=0; i<regiments.size(); i++){
+		S += regiments[i].getBD();
+	}
+	return S;
 }	
 
-double 		Division::getSpeed(){
-	return Speed;
+double 	Division::getSpeed(){
+	int S = 0;
+	for(int i=0; i<regiments.size(); i++){
+		if(S >regiments[i].getSpeed()){
+			S = regiments[i].getSpeed();
+		}
+	}
+	return S;
 }		
 
 int 		Division::getStrength(){
 	return Strength;
 }	
 
-int 		Division::getMaxStrength(){
-	return MaxStrength;
+int Division::getMaxStrength(){
+	int S = 0;
+	for(int i=0; i<regiments.size(); i++){
+		S += regiments[i].getStrength();
+	}
+	return S;
 }	
 	
 int 		Division::getNumReg(){
@@ -35,15 +50,26 @@ std::vector<Regiment> Division::getRegs(){
 double 		Division::getOrg(){
 	return Organization;
 }	
-		
+	
+
 double 		Division::getBV(){
-	return BV;
+	int S = 0;
+	for(int i=0; i<regiments.size(); i++){
+		S += regiments[i].getBV();
+	}
+	return S;
 }	
+
 			
 double 		Division::getDV(){
-	return DV;
+	int S = 0;
+	for(int i=0; i<regiments.size(); i++){
+		S += regiments[i].getDV();
+	}
+	return S;
 }	
-			
+		
+
 double		Division::getX(){
 	return position.x;
 }	
@@ -67,10 +93,7 @@ bool		Division::isEngaged(){
 void 		Division::setPos(Vector2 p){
 	position = p;
 }	
-	
-void 		Division::setStrength(int s){
-	Strength = s;
-}	
+		
 	
 void 		Division::setOrg(double o){
 	Organization = o;
@@ -82,6 +105,13 @@ void		Division::moveTo(Vector2 p){
 	
 void		Division::setRegiments(std::vector<Regiment> r){
 	regiments = r;
+}
+
+void		Division::addRegiment(int t, int b){
+	Regiment r = Regiment(t,b);
+	if(getMaxStrength()+r.getStrength() <= 300){
+		regiments.push_back(r);
+	}
 }	
 
 
