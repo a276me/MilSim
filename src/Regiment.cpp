@@ -26,6 +26,6 @@ Regiment::Regiment(int t, int b){
 		BDV = 20;
 		BS = 20;
 		BBD = 30;
-		
+
 	}
 }
