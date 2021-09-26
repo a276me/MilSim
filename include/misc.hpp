@@ -6,4 +6,5 @@ public:
 	double y;
 
 	Vector2(double x1, double y1);
+	Vector2();
 };
