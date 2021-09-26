@@ -9,3 +9,7 @@ Vector2::Vector2(){
 	x=0;
 	y=0;
 }
+
+double getDistance(Vector2 a, Vector2 b){
+	return sqrt(pow((a.x-b.x),2)+pow((a.y-b.y),2));
+}

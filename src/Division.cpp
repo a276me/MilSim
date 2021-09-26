@@ -111,12 +111,21 @@ void		Division::addRegiment(int t, int b){
 	Regiment r = Regiment(t,b);
 	if(getMaxStrength()+r.getStrength() <= 300){
 		regiments.push_back(r);
+		Strength = getMaxStrength();
 	}
+
 }	
 
+void Division::setStrength(int s){
+	Strength = s;
+}
 
-Division::Division(int t, Vector2 pos, std::string n){
+
+Division::Division(int t, Vector2 pos, std::string n, int te){
 	type = t;
 	position = pos;
 	name = n;
+	team = te;
+	Strength = 0;
+	Organization = 100;
 }

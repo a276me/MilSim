@@ -25,36 +25,36 @@ double 	Regiment::getSpeed(){
 
 Regiment::Regiment(int t, int b){
 	if(t == INF){
-		BBV = 20;
-		BDV = 20;
+		BBV = 2;
+		BDV = 2;
 		BS = 10;
 		BSP = 5;
 		BBD = 3;
 
 	}else if(t == ARMOR){
-		BBV = 50;
-		BDV = 20;
+		BBV = 5;
+		BDV = 2;
 		BS = 35;
 		BSP = 20;
 		BBD = 5;
 
 	}else if(t == ARTILLARY){
-		BBV = 10;
-		BDV = 10;
+		BBV = 1;
+		BDV = 1;
 		BS = 25;
 		BSP = 20;
 		BBD = 5;
 
 	}else if(t == MECH_INF){
-		BBV = 40;
-		BDV = 20;
+		BBV = 4;
+		BDV = 2;
 		BS = 20;
 		BSP = 20;
 		BBD = 3;
 
 	}else if(t == SF){
-		BBV = 10;
-		BDV = 10;
+		BBV = 1;
+		BDV = 1;
 		BS = 35;
 		BSP = 7;
 		BBD = 5;

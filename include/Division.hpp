@@ -28,14 +28,18 @@ public:
 	double		getY(); 			//returns Y coordinates on map
 	Vector2		getPos();			//returns vector position
 	Vector2		getTarget();		//returns the target of the division for movement
-	bool		isEngaged();		//return whether the division is engaged in battle
 	void 		setPos(Vector2 p);	//sets the position of the division
 	void 		setOrg(double o);	//sets organization fo division
 	void		moveTo(Vector2 p);	//sets movement target to p
 	void		setRegiments(std::vector<Regiment> r);	//sets regiments
 	void		addRegiment(int t, int b);
+	void		setStrength(int s);
 
-				Division(int t, Vector2 pos, std::string n);
+				Division(int t, Vector2 pos, std::string n, int te);
+
+	int team;						//the team number; 0 is blue, 1 is red
+	bool		engaged;
+	
 
 
 private:
@@ -49,7 +53,7 @@ private:
 	double		DV;
 	std::string name;
 	int 		type;
-	bool		engaged;
+	
 
 
 };
