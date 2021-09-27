@@ -5,7 +5,7 @@ default:
 	make run
 	
 build:
-	g++ $(SRCS) -I ./include -o sim.out
+	g++ $(SRCS) -I ./include -lraylib -o sim.out
 
 run:
 	./sim.out

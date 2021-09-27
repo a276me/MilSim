@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <misc.hpp>
+#include <raylib.h>
 #include <Regiment.hpp>
 
 class Division{

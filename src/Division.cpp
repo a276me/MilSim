@@ -1,5 +1,4 @@
 #include "Division.hpp"
-#include "Battalion.hpp"
 
 std::string Division::getName(){
 	return name;

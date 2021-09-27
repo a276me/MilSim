@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include <raylib.h>
 #include <iostream>
 #include <vector>
 #include <random>
@@ -7,6 +7,7 @@
 #include "Division.hpp"
 #include "Regiment.hpp"
 #include "misc.hpp"
+#include "graphics.hpp"
 
 int TIME = 0;
 static std::vector<Division> divisions;
@@ -81,23 +82,17 @@ void findEngagements(){
 
 int main(){
 
+	initRL();
 
-	// divisions.push_back(Division(ARMORED_DIV, Vector2(0.0,0.0), std::string("1st Armored Division"), 0));
-	// divisions[0].addRegiment(ARMOR, 3);
-
-	// std::cout<<"The 1st Armored Division has been deployed!\n";
-	// std::cout<<"has "<<divisions[0].getNumReg()<<" regiments with a total of "<<divisions[0].getMaxStrength()<<" Strength\n";
-	// std::cout<<"has a BD of "<<divisions[0].getBD()<<"\n";
-
-	Division div1 = Division(ARMORED_DIV, Vector2(0,0), std::string("Div A"), 0);
+	Division div1 = Division(ARMORED_DIV, {0,0}, std::string("Div A"), 0);
 	div1.addRegiment(ARMOR,2);
 	div1.addRegiment(INF, 7);
 
-	Division div2 = Division(ARMORED_DIV, Vector2(10,0), std::string("Div B"), 1);
+	Division div2 = Division(ARMORED_DIV, {0,10}, std::string("Div B"), 1);
 	div2.addRegiment(MECH_INF,3);
 	div2.addRegiment(ARMOR, 1);
 
-	Division div3 = Division(ARMORED_DIV, Vector2(-10,0), std::string("Div C"), 1);
+	Division div3 = Division(ARMORED_DIV, {-10,0}, std::string("Div C"), 1);
 	div3.addRegiment(MECH_INF,3);
 	div3.addRegiment(ARMOR, 2);
 
@@ -106,26 +101,26 @@ int main(){
 	divisions.push_back(div2);
 	divisions.push_back(div3);
 
-srand(time(0));
-	while(true){
+	srand(time(0));
+
+	while (!WindowShouldClose()) {
 		TIME++;
-		int a;
-		if(TIME%100000000 == 0){
-			//look for engagements
-			findEngagements();
-			toggleEngaged();
-			for(int i=0;i<divisions.size(); i++){
-				std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<"; "<<divisions[i].engaged<<";\n";
-			}
-			std::cout << divisions.size()<<"\n";
-			removeAndHeal();
-			
-		
-
-
+		//look for engagements
+		findEngagements();
+		toggleEngaged();
+		for(int i=0;i<divisions.size(); i++){
+			std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<"; "<<divisions[i].engaged<<";\n";
 		}
+		std::cout << divisions.size()<<"\n";
+		removeAndHeal();
+
+		drawScreen();
+
+		
 	}
 
+	
+	endRL();
 
 	return 0;
 }
