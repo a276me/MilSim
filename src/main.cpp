@@ -11,11 +11,25 @@
 int TIME = 0;
 static std::vector<Division> divisions;
 
+void toggleEngaged(){
+	for(int i = 0; i<divisions.size();i++){
+		bool e = false;
+		for(int j = 0; j<divisions.size();j++){
+			if(i == j){continue;}
+			if(getDistance(divisions[i].getPos(), divisions[j].getPos()) < divisions[i].getBD()+divisions[j].getBD() && divisions[i].team != divisions[j].team){
+				e = true;
+			}
+		}
+		divisions[i].engaged = e;
+	}
+}
+
 
 void removeAndHeal(){
-	for(int i = divisions.size()-1; i>=0; i--){
+	for(int i = 0; i<divisions.size(); i++){
 		if(divisions[i].getStrength() <=0){
-			divisions.erase(divisions.begin()+(divisions.size()-i));
+			std::cout<<"removing\n";
+			divisions.erase(divisions.begin() + i);
 			std::cout<<divisions[i].getName()<<" destroyed\n";
 			continue;
 		}
@@ -29,14 +43,12 @@ void removeAndHeal(){
 
 void fight(Division *a, Division *b){		// a is attacking, b is defending
 
-	a->engaged = true;
-	b->engaged = true;
 
 	if(a->getStrength()<=0 || b->getStrength() <=0){
 		return;
 	}
 
-	srand(time(0));
+	
 
 	int n = rand()%(int)(a->getBV()+b->getDV());
 
@@ -58,7 +70,7 @@ void findEngagements(){
 	for(int i = divisions.size()-1; i>=0; i--){
 		int e = 0;
 			for(int j = 0; j<i; j++){
-				if(getDistance(divisions[i].getPos(), divisions[j].getPos()) < divisions[i].getBD()+divisions[j].getBD()){
+				if(getDistance(divisions[i].getPos(), divisions[j].getPos()) < divisions[i].getBD()+divisions[j].getBD() && divisions[i].team != divisions[j].team){
 					std::cout<<"engagment detected between "<<divisions[i].getName()<<" and "<<divisions[j].getName()<<"\n";
 					fight(&divisions[i], &divisions[j]);
 				}
@@ -80,25 +92,28 @@ int main(){
 	Division div1 = Division(ARMORED_DIV, Vector2(0,0), std::string("Div A"), 0);
 	div1.addRegiment(ARMOR,2);
 	div1.addRegiment(INF, 7);
-	std::cout<<div1.getBD()<<"\n";
 
 	Division div2 = Division(ARMORED_DIV, Vector2(10,0), std::string("Div B"), 1);
 	div2.addRegiment(MECH_INF,3);
 	div2.addRegiment(ARMOR, 1);
-	std::cout<<div2.getBD()<<"\n";
-	std::cout<<div1.getBV()<< "; "<<div1.getDV()<<"\n";
-	std::cout<<div2.getBV()<< "; "<<div2.getDV()<<"\n";
+
+	Division div3 = Division(ARMORED_DIV, Vector2(-10,0), std::string("Div C"), 1);
+	div3.addRegiment(MECH_INF,3);
+	div3.addRegiment(ARMOR, 2);
+
 
 	divisions.push_back(div1);
 	divisions.push_back(div2);
+	divisions.push_back(div3);
 
-
+srand(time(0));
 	while(true){
 		TIME++;
 		int a;
-		if(TIME%1000000000 == 0){
+		if(TIME%100000000 == 0){
 			//look for engagements
 			findEngagements();
+			toggleEngaged();
 			for(int i=0;i<divisions.size(); i++){
 				std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<"; "<<divisions[i].engaged<<";\n";
 			}
