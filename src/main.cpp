@@ -9,12 +9,20 @@
 #include "misc.hpp"
 
 int TIME = 0;
-std::vector<Division> divisions = {};
+static std::vector<Division> divisions;
 
 
 void removeAndHeal(){
 	for(int i = divisions.size()-1; i>=0; i--){
-		if()
+		if(divisions[i].getStrength() <=0){
+			divisions.erase(divisions.begin()+(divisions.size()-i));
+			std::cout<<divisions[i].getName()<<" destroyed\n";
+			continue;
+		}
+		if(!divisions[i].engaged){
+			divisions[i].setStrength(divisions[i].getStrength()+5);
+			divisions[i].setOrg(divisions[i].getOrg()+5);
+		}
 	}
 }
 
@@ -53,12 +61,9 @@ void findEngagements(){
 				if(getDistance(divisions[i].getPos(), divisions[j].getPos()) < divisions[i].getBD()+divisions[j].getBD()){
 					std::cout<<"engagment detected between "<<divisions[i].getName()<<" and "<<divisions[j].getName()<<"\n";
 					fight(&divisions[i], &divisions[j]);
-					e = 1;
 				}
 			}
-		if(!e){
-			divisions[i].engaged = false;
-		}
+
 		}
 }
 
@@ -72,12 +77,12 @@ int main(){
 	// std::cout<<"has "<<divisions[0].getNumReg()<<" regiments with a total of "<<divisions[0].getMaxStrength()<<" Strength\n";
 	// std::cout<<"has a BD of "<<divisions[0].getBD()<<"\n";
 
-	Division div1 = Division(ARMORED_DIV, Vector2(0,0), std::string("1st Armored Division"), 0);
+	Division div1 = Division(ARMORED_DIV, Vector2(0,0), std::string("Div A"), 0);
 	div1.addRegiment(ARMOR,2);
 	div1.addRegiment(INF, 7);
 	std::cout<<div1.getBD()<<"\n";
 
-	Division div2 = Division(ARMORED_DIV, Vector2(10,0), std::string("102nd Mechanized Infantry Division"), 1);
+	Division div2 = Division(ARMORED_DIV, Vector2(10,0), std::string("Div B"), 1);
 	div2.addRegiment(MECH_INF,3);
 	div2.addRegiment(ARMOR, 1);
 	std::cout<<div2.getBD()<<"\n";
@@ -90,13 +95,14 @@ int main(){
 
 	while(true){
 		TIME++;
-		
-		if(TIME%10000000000000000== 0){
+		int a;
+		if(TIME%1000000000 == 0){
 			//look for engagements
 			findEngagements();
 			for(int i=0;i<divisions.size(); i++){
-				std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<";\n";
+				std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<"; "<<divisions[i].engaged<<";\n";
 			}
+			std::cout << divisions.size()<<"\n";
 			removeAndHeal();
 			
 		

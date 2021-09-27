@@ -93,6 +93,12 @@ void 		Division::setPos(Vector2 p){
 		
 	
 void 		Division::setOrg(double o){
+	if(o>100){
+		o=100;
+	}
+	if(o<0){
+		o=0;
+	}
 	Organization = o;
 }	
 	
@@ -114,6 +120,9 @@ void		Division::addRegiment(int t, int b){
 }	
 
 void Division::setStrength(int s){
+	if(s > getMaxStrength()){
+		s = getMaxStrength();
+	}
 	Strength = s;
 }
 

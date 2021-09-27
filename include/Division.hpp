@@ -45,7 +45,7 @@ public:
 private:
 	Vector2		position;
 	Vector2		target;
-	std::vector<Regiment> regiments = {};
+	std::vector<Regiment> regiments;
 	double		Speed;
 	int			Strength;
 	double		Organization;
