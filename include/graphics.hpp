@@ -5,8 +5,8 @@
 #include "main.hpp"
 #include "Division.hpp"
 
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 960;
+const int SCREEN_WIDTH = 1280*1.5;
+const int SCREEN_HEIGHT = 960*1.2;
 
 Texture2D natoTest;
 Texture2D natoInf;
@@ -34,16 +34,18 @@ void updateVariables(){
 
     if(IsKeyDown(KEY_LEFT_SHIFT)) t = 3;
 
-    if (IsKeyDown(KEY_LEFT)) camera.target.x -= t*2;
-    else if (IsKeyDown(KEY_RIGHT)) camera.target.x += t*2;
+    int s = 10;
 
-    if (IsKeyDown(KEY_UP)) camera.target.y -= t*2;
-    else if (IsKeyDown(KEY_DOWN)) camera.target.y += t*2;
+    if (IsKeyDown(KEY_A)) camera.target.x -= t*s;
+    else if (IsKeyDown(KEY_D)) camera.target.x += t*s;
+
+    if (IsKeyDown(KEY_W)) camera.target.y -= t*s;
+    else if (IsKeyDown(KEY_S)) camera.target.y += t*s;
 
         // Camera zoom controls
         camera.zoom += ((float)GetMouseWheelMove()*t*0.02f);
 
-        if (camera.zoom > 1.f) camera.zoom = 1.f;
+        if (camera.zoom > 3.f) camera.zoom = 3.f;
         else if (camera.zoom < .01f) camera.zoom = .01f;
 
         // Camera reset (zoom and rotation)
@@ -51,13 +53,14 @@ void updateVariables(){
         {
             camera.zoom = 1.0f;
             camera.rotation = 0.0f;
+            camera.target = {0,0};
         }
 }
 
 void loadResources(){
     natoTest = LoadTexture("nato.png");
     natoInf = LoadTexture("./assets/NATO/friendly_infantry.png");
-    natoMechInf = LoadTexture("./assets/NATO/friendly_mech_inf.png");
+    natoMechInf = LoadTexture("./assets/NATO/friendly_mech_infantry.png");
     natoArmor = LoadTexture("./assets/NATO/friendly_armor.png");
     hostileInf = LoadTexture("./assets/HOSTILE/hostile_inf.png");
     hostileMechInf = LoadTexture("./assets/HOSTILE/hostile_mech_inf.png");
@@ -76,6 +79,8 @@ void initRL(){
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
 
+    MaximizeWindow();
+
 }
 
 void endRL(){
@@ -90,26 +95,34 @@ void drawUI(){
 
 void drawDivision(){
 
-    for(int i=0; i<divisions.size(); i++){
-        if(divisions[i].team == 0){
+    float s = 0.7f;
+    float ss = 100.f;
 
+    for(int i=0; i<divisions.size(); i++){
+        DrawCircleV((Vector2){divisions[i].position.x*ss, -divisions[i].position.y*ss}, ss*divisions[i].getBD()/2.f, (Color){ 100, 100, 100, 100 });
+        if(divisions[i].team == 0){
             if(divisions[i].getType() == INFANTRY_DIV){
-                DrawTextureV(natoInf, (Vector2){divisions[i].getPos().x-natoInf.width/2,-divisions[i].getPos().y-natoInf.height/2}, (Color){ 255, 255, 255, 255 });
+                DrawTextureEx(natoInf, (Vector2){ss*divisions[i].getPos().x-(natoInf.width/2)*s,ss*-divisions[i].getPos().y-(natoInf.height/2)*s}, 0, s,(Color){ 255, 255, 255, 255 });
             } else if(divisions[i].getType() == ARMORED_DIV){
-                DrawTextureV(natoArmor, (Vector2){divisions[i].getPos().x-natoArmor.width/2,-divisions[i].getPos().y-natoArmor.height/2}, (Color){ 255, 255, 255, 255 });
+                DrawTextureEx(natoArmor, (Vector2){ss*divisions[i].getPos().x-(natoArmor.width/2)*s,ss*-divisions[i].getPos().y-(natoArmor.height/2)*s}, 0, s,(Color){ 255, 255, 255, 255 });
             } else if(divisions[i].getType() == MECH_INFANTRY_DIV){
-                DrawTextureV(natoMechInf, (Vector2){divisions[i].getPos().x-natoMechInf.width/2,-divisions[i].getPos().y-natoMechInf.height/2}, (Color){ 255, 255, 255, 255 });
+                DrawTextureEx(natoMechInf, (Vector2){ss*divisions[i].getPos().x-(natoMechInf.width/2)*s,ss*-divisions[i].getPos().y-(natoMechInf.height/2)*s}, 0, s,(Color){ 255, 255, 255, 255 });
             }
             
         }else if(divisions[i].team == 1){
             if(divisions[i].getType() == INFANTRY_DIV){
-                DrawTextureV(hostileInf, (Vector2){divisions[i].getPos().x-hostileInf.width/2,-divisions[i].getPos().y-hostileInf.height/2}, (Color){ 255, 255, 255, 255 });
+                DrawTextureEx(hostileInf, (Vector2){ss*divisions[i].getPos().x-(hostileInf.width/2)*s,ss*-divisions[i].getPos().y-(hostileInf.height/2)*s}, 0, s,(Color){ 255, 255, 255, 255 });
             } else if(divisions[i].getType() == ARMORED_DIV){
-                DrawTextureV(hostileArmor, (Vector2){divisions[i].getPos().x-hostileArmor.width/2,-divisions[i].getPos().y-hostileArmor.height/2}, (Color){ 255, 255, 255, 255 });
+                DrawTextureEx(hostileArmor, (Vector2){ss*divisions[i].getPos().x-(hostileArmor.width/2)*s,ss*-divisions[i].getPos().y-(hostileArmor.height/2)*s}, 0, s,(Color){ 255, 255, 255, 255 });
             } else if(divisions[i].getType() == MECH_INFANTRY_DIV){
-                DrawTextureV(hostileMechInf, (Vector2){divisions[i].getPos().x-hostileMechInf.width/2,-divisions[i].getPos().y-hostileMechInf.height/2}, (Color){ 255, 255, 255, 255 });
+                DrawTextureEx(hostileMechInf, (Vector2){ss*divisions[i].getPos().x-(hostileMechInf.width/2)*s,ss*-divisions[i].getPos().y-(hostileMechInf.height/2)*s}, 0, s,(Color){ 255, 255, 255, 255 });
             }
         }
+
+        DrawText(divisions[i].getName().c_str(),ss*divisions[i].getPos().x-(MeasureText(divisions[i].getName().c_str(), 200)/2), ss*-divisions[i].getPos().y-(hostileInf.height/2)*s-220,200,(Color){ 0, 0, 0, 255 });
+        DrawText(std::to_string((int)divisions[i].getOrg()).c_str(),ss*divisions[i].getPos().x+(natoInf.width/2)*s+20, ss*-divisions[i].getPos().y-210,200,(Color){ 0, 0, 0, 255 });
+        DrawText(std::to_string((int)divisions[i].getStrength()).c_str(),ss*divisions[i].getPos().x+(natoInf.width/2)*s+20, ss*-divisions[i].getPos().y,200,(Color){ 0, 0, 0, 255 });
+        
     }
 }
 

@@ -19,7 +19,7 @@ double	Division::getBD(){
 double 	Division::getSpeed(){
 	int S = 0;
 	for(int i=0; i<regiments.size(); i++){
-		if(S >regiments[i].getSpeed()){
+		if(S < regiments[i].getSpeed()){
 			S = regiments[i].getSpeed();
 		}
 	}
@@ -123,6 +123,11 @@ void Division::setStrength(int s){
 		s = getMaxStrength();
 	}
 	Strength = s;
+}
+
+void Division::setTarget(Vector2 v){
+	moving = true;
+	target = v;
 }
 
 

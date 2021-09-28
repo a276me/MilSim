@@ -35,16 +35,19 @@ public:
 	void		setRegiments(std::vector<Regiment> r);	//sets regiments
 	void		addRegiment(int t, int b);
 	void		setStrength(int s);
+	void		setTarget(Vector2 v);
 
 				Division(int t, Vector2 pos, std::string n, int te);
 
-	int team;						//the team number; 0 is blue, 1 is red
-	bool		engaged;
+	int 		team;				//the team number; 0 is blue, 1 is red
+	bool		engaged=false;
+	bool		moving=false;
+	Vector2		position;
 	
 
 
 private:
-	Vector2		position;
+	
 	Vector2		target;
 	std::vector<Regiment> regiments;
 	double		Speed;

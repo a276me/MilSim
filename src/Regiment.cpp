@@ -20,7 +20,8 @@ double 	Regiment::getBD(){
 	return BBD * battalions;
 }
 double 	Regiment::getSpeed(){
-	return BSP * battalions;
+	std::cout<<BSP<<"is battle speed\n";
+	return BSP;
 }
 
 Regiment::Regiment(int t, int b){
@@ -28,34 +29,34 @@ Regiment::Regiment(int t, int b){
 		BBV = 2;
 		BDV = 2;
 		BS = 10;
-		BSP = 5;
+		BSP = 2;
 		BBD = 3;
 
 	}else if(t == ARMOR){
 		BBV = 5;
 		BDV = 2;
 		BS = 35;
-		BSP = 20;
+		BSP = 10;
 		BBD = 5;
 
 	}else if(t == ARTILLARY){
 		BBV = 1;
 		BDV = 1;
 		BS = 25;
-		BSP = 20;
+		BSP = 10;
 		BBD = 5;
 
 	}else if(t == MECH_INF){
 		BBV = 4;
 		BDV = 2;
 		BS = 20;
-		BSP = 20;
+		BSP = 10;
 		BBD = 3;
 
 	}else if(t == SF){
 		BBV = 1;
 		BDV = 1;
-		BS = 35;
+		BS = 17;
 		BSP = 7;
 		BBD = 5;
 
