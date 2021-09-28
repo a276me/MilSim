@@ -15,9 +15,31 @@ void drawDivision();
 void drawCamera();
 void drawScreen();
 void loadResources();
+void updateVariables();
 
 
 Camera2D camera = { 0 };
+
+void updateVariables(){
+    if (IsKeyDown(KEY_RIGHT)) camera.target.x += 2;
+    else if (IsKeyDown(KEY_LEFT)) camera.target.x -= 2;
+
+    if (IsKeyDown(KEY_Q)) camera.rotation++;
+    else if (IsKeyDown(KEY_E)) camera.rotation--;
+
+        // Camera zoom controls
+        camera.zoom += ((float)GetMouseWheelMove()*0.05f);
+
+        if (camera.zoom > 1.f) camera.zoom = 1.f;
+        else if (camera.zoom < .01f) camera.zoom = .01f;
+
+        // Camera reset (zoom and rotation)
+        if (IsKeyPressed(KEY_R))
+        {
+            camera.zoom = 1.0f;
+            camera.rotation = 0.0f;
+        }
+}
 
 void loadResources(){
     natoTest = LoadTexture("nato.png");
@@ -43,15 +65,18 @@ void endRL(){
 
 
 void drawUI(){
-    ClearBackground(RAYWHITE);
+    ClearBackground((Color){ 245, 245, 245, 255 });
 
 }
 
 void drawDivision(){
-    DrawTextureV(natoTest, {0-natoTest.width/2,0-natoTest.height/2}, WHITE);
+    DrawTextureV(natoTest, (Vector2){0-natoTest.width/2,0-natoTest.height/2}, (Color){ 255, 255, 255, 255 });
 }
 
 void drawCamera(){
+
+    updateVariables();
+
     BeginMode2D(camera);
 
     drawDivision();

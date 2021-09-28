@@ -84,15 +84,15 @@ int main(){
 
 	initRL();
 
-	Division div1 = Division(ARMORED_DIV, {0,0}, std::string("Div A"), 0);
+	Division div1 = Division(ARMORED_DIV, (Vector2){0,0}, std::string("Div A"), 0);
 	div1.addRegiment(ARMOR,2);
 	div1.addRegiment(INF, 7);
 
-	Division div2 = Division(ARMORED_DIV, {0,10}, std::string("Div B"), 1);
+	Division div2 = Division(ARMORED_DIV, (Vector2){0,10}, std::string("Div B"), 1);
 	div2.addRegiment(MECH_INF,3);
 	div2.addRegiment(ARMOR, 1);
 
-	Division div3 = Division(ARMORED_DIV, {-10,0}, std::string("Div C"), 1);
+	Division div3 = Division(ARMORED_DIV, (Vector2){-10,0}, std::string("Div C"), 1);
 	div3.addRegiment(MECH_INF,3);
 	div3.addRegiment(ARMOR, 2);
 
