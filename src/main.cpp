@@ -4,13 +4,13 @@
 #include <random>
 #include <ctime>
 
+#include "main.hpp"
 #include "Division.hpp"
 #include "Regiment.hpp"
 #include "misc.hpp"
 #include "graphics.hpp"
 
-int TIME = 0;
-static std::vector<Division> divisions;
+
 
 void toggleEngaged(){
 	for(int i = 0; i<divisions.size();i++){
