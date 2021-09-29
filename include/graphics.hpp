@@ -127,7 +127,10 @@ void drawDivision(){
         DrawText(divisions[i].getName().c_str(),ss*divisions[i].getPos().x-(MeasureText(divisions[i].getName().c_str(), 200)/2), ss*-divisions[i].getPos().y-(hostileInf.height/2)*s-220,200,(Color){ 0, 0, 0, 255 });
         DrawText(std::to_string((int)divisions[i].getOrg()).c_str(),ss*divisions[i].getPos().x+(natoInf.width/2)*s+20, ss*-divisions[i].getPos().y-210,200,(Color){ 0, 0, 0, 255 });
         DrawText(std::to_string((int)divisions[i].getStrength()).c_str(),ss*divisions[i].getPos().x+(natoInf.width/2)*s+20, ss*-divisions[i].getPos().y,200,(Color){ 0, 0, 0, 255 });
-        
+        DrawText(std::to_string((int)divisions[i].getBV()).c_str(),ss*divisions[i].getPos().x-(natoInf.width/2)*s-MeasureText(std::to_string((int)divisions[i].getBV()).c_str(),200)-30, ss*-divisions[i].getPos().y-200,200,(Color){ 0, 0, 0, 255 });
+        DrawText(std::to_string((int)divisions[i].getDV()).c_str(),ss*divisions[i].getPos().x-(natoInf.width/2)*s-MeasureText(std::to_string((int)divisions[i].getDV()).c_str(),200)-30, ss*-divisions[i].getPos().y+20,200,(Color){ 0, 0, 0, 255 });
+
+
     }
 }
 
