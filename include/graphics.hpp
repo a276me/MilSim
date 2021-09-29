@@ -53,7 +53,7 @@ void updateVariables(){
         {
             camera.zoom = 1.0f;
             camera.rotation = 0.0f;
-            camera.target = {0,0};
+            camera.target = (Vector2){0,0};
         }
 }
 
@@ -100,6 +100,10 @@ void drawDivision(){
 
     for(int i=0; i<divisions.size(); i++){
         DrawCircleV((Vector2){divisions[i].position.x*ss, -divisions[i].position.y*ss}, ss*divisions[i].getBD()/2.f, (Color){ 100, 100, 100, 100 });
+        DrawLineEx((Vector2){divisions[i].position.x*ss,-divisions[i].position.y*ss}, (Vector2){divisions[i].getTarget().x*ss,  -divisions[i].getTarget().y*ss}, 20, (Color){0,0,0,255});
+    } 
+
+    for(int i=0; i<divisions.size(); i++){
         if(divisions[i].team == 0){
             if(divisions[i].getType() == INFANTRY_DIV){
                 DrawTextureEx(natoInf, (Vector2){ss*divisions[i].getPos().x-(natoInf.width/2)*s,ss*-divisions[i].getPos().y-(natoInf.height/2)*s}, 0, s,(Color){ 255, 255, 255, 255 });

@@ -36,7 +36,7 @@ void moveDivs(){
 			std::cout<<theta<<"\n";
 			std::cout<<(cos(theta))<<"\n";
 			std::cout<<s<<" is battle speed\n";
-			divisions[i].position = {(float)(p.x+s*cos(theta)/60), (float)(p.y+s*sin(theta)/60)};
+			divisions[i].position = (Vector2){(float)(p.x+s*cos(theta)/60), (float)(p.y+s*sin(theta)/60)};
 		}
 	}
 
@@ -121,7 +121,7 @@ int main(){
 	Division div2 = Division(ARMORED_DIV, (Vector2){0,100}, std::string("Div B"), 0);
 	div2.addRegiment(MECH_INF,3);
 	div2.addRegiment(ARMOR, 1);
-	div2.setTarget((Vector2){0,0});
+	div2.setTarget((Vector2){-20,0});
 
 	Division div3 = Division(ARMORED_DIV, (Vector2){-100,0}, std::string("Div C"), 1);
 	div3.addRegiment(MECH_INF,3);
@@ -138,9 +138,9 @@ int main(){
 	while (!WindowShouldClose()) {
 		TIME++;
 		//look for engagements
-		
+		toggleEngaged();
 		if(TIME%30 == 0){
-			toggleEngaged();
+			
 			findEngagements();
 			for(int i=0;i<divisions.size(); i++){
 				std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<"; "<<divisions[i].engaged<<"; "<<divisions[i].position.x<<"; "<<divisions[i].position.y<<";\n";
