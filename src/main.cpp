@@ -20,8 +20,8 @@ void moveDivs(){
 			Vector2 t = divisions[i].getTarget();
 			double theta = 0.0;
 			double d = getDistance(p,t);
-			double dx = t.x-p.x;
-			double dy = t.y-p.y;
+			double dx = p.x-t.x;
+			double dy = p.y-t.y;
 			double s = divisions[i].getSpeed();
 			if(dx >= 0){
 					theta = asin(dy/d);
@@ -29,18 +29,33 @@ void moveDivs(){
 				if(dy >=0){
 					theta = acos(dx/d);
 				}else{
-					theta = acos(dy/d)+(PI-acos(dy/d));
+					theta = (acos(dy/d)+(PI-acos(dy/d)));
 				}
 			}
+
+			float cx = (float)(p.x-s*cos(theta)/30);
+			float cy = (float)(p.y-s*sin(theta)/30);
+
+
+			dx = t.x-p.x;
+			dy = t.y-p.y;
+			if(dx > 0){
+				theta = asin(dy/d);
+				cx = (float)(p.x+s*cos(theta)/30);
+				cy = (float)(p.y+s*sin(theta)/30);
+			}
+
 			std::cout<<"Moving\n";
-			std::cout<<theta<<"\n";
+			std::cout<<(theta*180/PI)<<"\n";
+			std::cout<<(sin(theta))<<"\n";
 			std::cout<<(cos(theta))<<"\n";
 			std::cout<<s<<" is battle speed\n";
-			divisions[i].position = (Vector2){(float)(p.x+s*cos(theta)/60), (float)(p.y+s*sin(theta)/60)};
+			divisions[i].position = (Vector2){cx, cy};
 
 			if(getDistance(divisions[i].position, divisions[i].getTarget()) < s/30){
-				divisions[i].moving = false;
+				
 				divisions[i].setTarget((Vector2){{0}, {0}});
+				divisions[i].moving = false;
 			}
 		}
 	}
@@ -122,40 +137,54 @@ int main(){
 	Division div1 = Division(MECH_INFANTRY_DIV, (Vector2){0,0}, std::string("1st Infantry Division"), 0);
 	div1.addRegiment(ARMOR,2);
 	div1.addRegiment(INF, 7);
+	div1.setTarget((Vector2) {100,0});
 
-	Division div2 = Division(ARMORED_DIV, (Vector2){0,100}, std::string("Div B"), 0);
+	Division div2 = Division(ARMORED_DIV, (Vector2){0,50}, std::string("107th Armored Division"), 0);
 	div2.addRegiment(MECH_INF,3);
 	div2.addRegiment(ARMOR, 1);
-	div2.setTarget((Vector2){-20,0});
+	div2.setTarget((Vector2){100,50});
 
 	Division div3 = Division(ARMORED_DIV, (Vector2){-100,0}, std::string("Div C"), 1);
-	div3.addRegiment(MECH_INF,3);
+	div3.addRegiment(INF,7);
 	div3.addRegiment(ARMOR, 2);
-	div3.setTarget((Vector2){0,0});
+	div3.setTarget((Vector2){50,-29});
+
+	Division div4 = Division(INFANTRY_DIV, (Vector2){-100,100}, std::string("Div C"), 1);
+	div4.addRegiment(INF,7);
+	div4.addRegiment(ARMOR, 2);
+	div4.setTarget((Vector2){0,200});
 
 
 	divisions.push_back(div1);
 	divisions.push_back(div2);
 	divisions.push_back(div3);
+	divisions.push_back(div4);
 
 	srand(time(0));
+	
 
 	while (!WindowShouldClose()) {
-		TIME++;
-		//look for engagements
-		toggleEngaged();
-		if(TIME%30 == 0){
-			
-			findEngagements();
-			for(int i=0;i<divisions.size(); i++){
-				std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<"; "<<divisions[i].engaged<<"; "<<divisions[i].position.x<<"; "<<divisions[i].position.y<<";\n";
+		if(IsKeyDown(KEY_TAB)) SetTargetFPS(60*SPEED);
+		else	SetTargetFPS(60);
+
+		if(IsKeyDown(KEY_SPACE)){
+			TIME++;
+			//look for engagements
+			toggleEngaged();
+			if(TIME%(30) == 0){
+				
+				findEngagements();
+				for(int i=0;i<divisions.size(); i++){
+					std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<"; "<<divisions[i].engaged<<"; "<<divisions[i].position.x<<"; "<<divisions[i].position.y<<";\n";
+				}
+				std::cout << divisions.size()<<"\n";
+				removeAndHeal();
+				
 			}
-			std::cout << divisions.size()<<"\n";
-			removeAndHeal();
 			
+			
+			moveDivs();
 		}
-		
-		moveDivs();
 
 		drawScreen();
 

@@ -90,6 +90,7 @@ void endRL(){
 
 void drawUI(){
     ClearBackground((Color){ 245, 245, 245, 255 });
+    DrawFPS(10,10);
 
 }
 
@@ -100,7 +101,7 @@ void drawDivision(){
 
     for(int i=0; i<divisions.size(); i++){
         DrawCircleV((Vector2){divisions[i].position.x*ss, -divisions[i].position.y*ss}, ss*divisions[i].getBD()/2.f, (Color){ 100, 100, 100, 100 });
-        DrawLineEx((Vector2){divisions[i].position.x*ss,-divisions[i].position.y*ss}, (Vector2){divisions[i].getTarget().x*ss,  -divisions[i].getTarget().y*ss}, 20, (Color){0,0,0,255});
+        if(divisions[i].moving) DrawLineEx((Vector2){divisions[i].position.x*ss,-divisions[i].position.y*ss}, (Vector2){divisions[i].getTarget().x*ss,  -divisions[i].getTarget().y*ss}, 20, (Color){0,0,0,255});
     } 
 
     for(int i=0; i<divisions.size(); i++){

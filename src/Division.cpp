@@ -17,9 +17,9 @@ double	Division::getBD(){
 }	
 
 double 	Division::getSpeed(){
-	int S = 0;
+	int S = 100;
 	for(int i=0; i<regiments.size(); i++){
-		if(S < regiments[i].getSpeed()){
+		if(S > regiments[i].getSpeed()){
 			S = regiments[i].getSpeed();
 		}
 	}
