@@ -37,6 +37,11 @@ void moveDivs(){
 			std::cout<<(cos(theta))<<"\n";
 			std::cout<<s<<" is battle speed\n";
 			divisions[i].position = (Vector2){(float)(p.x+s*cos(theta)/60), (float)(p.y+s*sin(theta)/60)};
+
+			if(getDistance(divisions[i].position, divisions[i].getTarget()) < s/30){
+				divisions[i].moving = false;
+				divisions[i].setTarget((Vector2){{0}, {0}});
+			}
 		}
 	}
 
