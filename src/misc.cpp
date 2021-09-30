@@ -1,5 +1,6 @@
 #include "misc.hpp"
 #include <raylib.h>
+#include <iostream>
 
 // Vector2::Vector2(double x1, double y1){
 // 	x = x1;
@@ -38,4 +39,20 @@ double getAngle(Vector2 a, Vector2 b){ //get angle of b relative to a
 	}
 
 	return theta;
+}
+
+std::string getInput(){
+	int i = GetKeyPressed();
+	switch (i)
+	{
+	case /* constant-expression */:
+		/* code */
+		break;
+	
+	default:
+		break;
+	}
+
+	return std::string("aa");
+
 }

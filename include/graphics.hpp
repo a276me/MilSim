@@ -91,6 +91,7 @@ void endRL(){
 void drawUI(){
     ClearBackground((Color){ 245, 245, 245, 255 });
     DrawFPS(10,10);
+    DrawText(std::to_string(GetCharPressed()).c_str(), 30, 30, 200, (Color){255,255,255,255});
 
 }
 

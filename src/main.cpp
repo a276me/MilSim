@@ -183,9 +183,9 @@ int main(){
 	div2.addRegiment(ARMOR, 2);
 	// div2.setTarget((Vector2){0,0});
 
-	Division div3 = Division(ARMORED_DIV, (Vector2){100,0}, std::string("Div C"), 0);
-	div3.addRegiment(INF,7);
-	div3.addRegiment(INF,7);
+	Division div3 = Division(ARMORED_DIV, (Vector2){100,0}, std::string("German 51st Panzer Division"), 0);
+	div3.addRegiment(ARMOR,7);
+	div3.addRegiment(ARMOR,7);
 	div3.addRegiment(ARMOR, 2);
 	div3.setTarget((Vector2){-200,0});
 
