@@ -91,6 +91,10 @@ void removeAndHeal(){
 	}
 }
 
+void fallBack(Division* a){
+
+}
+
 
 void fight(Division *a, Division *b){		// a is attacking, b is defending
 
@@ -108,6 +112,7 @@ void fight(Division *a, Division *b){		// a is attacking, b is defending
 		a->setStrength(a->getStrength()-b->getDV()*(n/a->getBV()));
 		b->setStrength(b->getStrength()-a->getBV()*(n/a->getBV()));
 		b->setOrg(b->getOrg()-10);
+		fallBack(b);
 	}else{
 		// b won
 		a->setStrength(a->getStrength()-b->getDV()*((n-a->getBV())/b->getBV()));
@@ -123,7 +128,9 @@ void findEngagements(){
 			for(int j = 0; j<i; j++){
 				if(getDistance(divisions[i].getPos(), divisions[j].getPos()) < divisions[i].getBD()/2+divisions[j].getBD()/2 && divisions[i].team != divisions[j].team){
 					std::cout<<"engagment detected between "<<divisions[i].getName()<<" and "<<divisions[j].getName()<<"\n";
-					fight(&divisions[i], &divisions[j]);
+					if(divisions[i].moving && !divisions[j].moving) fight(&divisions[i], &divisions[j]);
+					else fight(&divisions[i], &divisions[j]);
+
 				}
 			}
 
