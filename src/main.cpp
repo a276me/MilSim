@@ -10,7 +10,7 @@
 #include "Regiment.hpp"
 #include "misc.hpp"
 #include "graphics.hpp"
-
+#include "templates.hpp"
 // void executeCommand(std::string cmd){
 // 	logs.push_back(cmd);
 // }
@@ -187,36 +187,15 @@ void findEngagements(){
 int main(){
 
 	initRL();
-
-	Division div1 = Division(MECH_INFANTRY_DIV, (Vector2){0,-20}, std::string("1st Infantry Division"), 1);
-	div1.addRegiment(ARMOR,2);
-	div1.addRegiment(INF, 7);
-	// div1.setTarget((Vector2) {0,0});
-
-	Division div2 = Division(ARMORED_DIV, (Vector2){0,20}, std::string("107th Armored Division"), 1);
-	div2.addRegiment(MECH_INF,3);
-	div2.addRegiment(ARMOR, 2);
-	div2.addRegiment(ARMOR, 2);
-	// div2.setTarget((Vector2){0,0});
-
-	Division div3 = Division(ARMORED_DIV, (Vector2){100,0}, std::string("German 51st Panzer Division"), 0);
-	div3.addRegiment(ARMOR,7);
-	div3.addRegiment(ARMOR,7);
-	div3.addRegiment(ARMOR, 2);
-	div3.setTarget((Vector2){-200,0});
-
-	Division div4 = Division(INFANTRY_DIV, (Vector2){-100,100}, std::string("Div C"), 1);
-	div4.addRegiment(INF,7);
-	div4.addRegiment(ARMOR, 2);
-	div4.setTarget((Vector2){0,200});
-
-
-	divisions.push_back(div1);
-	divisions.push_back(div2);
-	divisions.push_back(div3);
-	divisions.push_back(div4);
-
 	srand(time(0));
+
+	for(int i= -200; i<=200; i+=40){
+		Division d = getRandomDiv((Vector2){100, i}, 0);
+		d.setTarget((Vector2){-300, i});
+		divisions.push_back(d);
+	}
+
+	
 
 
 	while (!WindowShouldClose()) {

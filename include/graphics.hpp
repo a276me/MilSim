@@ -84,6 +84,13 @@ void initRL(){
 }
 
 void endRL(){
+UnloadTexture(natoTest);
+ UnloadTexture(natoInf);
+ UnloadTexture(natoArmor);
+ UnloadTexture(natoMechInf);
+ UnloadTexture(hostileInf);
+ UnloadTexture(hostileArmor);
+ UnloadTexture(hostileMechInf);
     CloseWindow(); 
 }
 
