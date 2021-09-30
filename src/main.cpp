@@ -11,6 +11,22 @@
 #include "misc.hpp"
 #include "graphics.hpp"
 
+// void executeCommand(std::string cmd){
+// 	logs.push_back(cmd);
+// }
+// void checkInput(){
+// 	if(IsKeyPressed(KEY_SEMICOLON)){
+// 		inputing = !inputing;
+// 		cmd = "";
+// 	}
+// 	if(IsKeyPressed(KEY_ENTER)){
+// 		executeCommand(cmd);
+// 		cmd = "";
+// 	}
+// 	if(inputing){
+// 		cmd += getKey();
+// 	}
+// }
 
 void moveDivs(){
 
@@ -201,31 +217,35 @@ int main(){
 	divisions.push_back(div4);
 
 	srand(time(0));
-	
+
 
 	while (!WindowShouldClose()) {
-		if(IsKeyDown(KEY_TAB)) SetTargetFPS(60*SPEED);
-		else	SetTargetFPS(60);
 
-		if(IsKeyDown(KEY_SPACE)){
-			TIME++;
-			//look for engagements
-			toggleEngaged();
-			if(TIME%(30) == 0){
-				
-				findEngagements();
-				for(int i=0;i<divisions.size(); i++){
-					std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<"; "<<divisions[i].engaged<<"; "<<divisions[i].position.x<<"; "<<divisions[i].position.y<<";\n";
+		// checkInput();
+
+		if(!inputing){
+			if(IsKeyDown(KEY_TAB)) SetTargetFPS(60*SPEED);
+			else	SetTargetFPS(60);
+
+			if(IsKeyDown(KEY_SPACE)){
+				TIME++;
+				//look for engagements
+				toggleEngaged();
+				if(TIME%(30) == 0){
+					
+					findEngagements();
+					for(int i=0;i<divisions.size(); i++){
+						std::cout<<divisions[i].getName()<<"; "<<divisions[i].getStrength()<<"; "<<divisions[i].getOrg()<<"; "<<divisions[i].engaged<<"; "<<divisions[i].position.x<<"; "<<divisions[i].position.y<<";\n";
+					}
+					std::cout << divisions.size()<<"\n";
+					removeAndHeal();
+					
 				}
-				std::cout << divisions.size()<<"\n";
-				removeAndHeal();
 				
+				
+				moveDivs();
 			}
-			
-			
-			moveDivs();
 		}
-
 		drawScreen();
 
 		

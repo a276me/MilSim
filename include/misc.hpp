@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 #include <cmath>
+#include <iostream>
 
 // class Vector2{
 // public:
@@ -14,4 +15,4 @@
 
 double getDistance(Vector2 a, Vector2 b);
 double getAngle(Vector2 a, Vector2 b);
-std::string   getInput();
+std::string getKey();
