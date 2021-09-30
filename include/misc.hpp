@@ -13,3 +13,4 @@
 // };
 
 double getDistance(Vector2 a, Vector2 b);
+double getAngle(Vector2 a, Vector2 b);

@@ -91,7 +91,37 @@ void removeAndHeal(){
 	}
 }
 
-void fallBack(Division* a){
+void fallBack(Division *a, Division *b){	// a is falling back, b is advancing
+	Vector2 p = a->position;
+	Vector2 t = b->position;
+	double theta = 0.0;
+	double d = getDistance(p,t);
+	double dx = p.x-t.x;
+	double dy = p.y-t.y;
+	double s = a->getSpeed();
+	if(dx >= 0){
+			theta = asin(dy/d);
+	} else{
+		if(dy >=0){
+			theta = acos(dx/d);
+		}else{
+			theta = (acos(dy/d)+(PI-acos(dy/d)));
+		}
+	}
+
+	float cx = (float)(p.x+s*cos(theta)/5);
+	float cy = (float)(p.y+s*sin(theta)/5);
+
+
+	dx = t.x-p.x;
+	dy = t.y-p.y;
+	if(dx > 0){
+		theta = asin(dy/d);
+		cx = (float)(p.x-s*cos(theta)/5);
+		cy = (float)(p.y-s*sin(theta)/5);
+	}
+	a->position = (Vector2){cx, cy};
+
 
 }
 
@@ -112,12 +142,13 @@ void fight(Division *a, Division *b){		// a is attacking, b is defending
 		a->setStrength(a->getStrength()-b->getDV()*(n/a->getBV()));
 		b->setStrength(b->getStrength()-a->getBV()*(n/a->getBV()));
 		b->setOrg(b->getOrg()-10);
-		fallBack(b);
+		fallBack(b, a);
 	}else{
 		// b won
 		a->setStrength(a->getStrength()-b->getDV()*((n-a->getBV())/b->getBV()));
 		b->setStrength(b->getStrength()-a->getBV()*((n-a->getBV())/b->getBV()));
 		a->setOrg(a->getOrg()-10);
+		// fallBack(a, b);
 	}
 
 }
@@ -141,20 +172,22 @@ int main(){
 
 	initRL();
 
-	Division div1 = Division(MECH_INFANTRY_DIV, (Vector2){0,0}, std::string("1st Infantry Division"), 0);
+	Division div1 = Division(MECH_INFANTRY_DIV, (Vector2){0,-20}, std::string("1st Infantry Division"), 1);
 	div1.addRegiment(ARMOR,2);
 	div1.addRegiment(INF, 7);
-	div1.setTarget((Vector2) {100,0});
+	// div1.setTarget((Vector2) {0,0});
 
-	Division div2 = Division(ARMORED_DIV, (Vector2){0,50}, std::string("107th Armored Division"), 0);
+	Division div2 = Division(ARMORED_DIV, (Vector2){0,20}, std::string("107th Armored Division"), 1);
 	div2.addRegiment(MECH_INF,3);
-	div2.addRegiment(ARMOR, 1);
-	div2.setTarget((Vector2){100,50});
+	div2.addRegiment(ARMOR, 2);
+	div2.addRegiment(ARMOR, 2);
+	// div2.setTarget((Vector2){0,0});
 
-	Division div3 = Division(ARMORED_DIV, (Vector2){-100,0}, std::string("Div C"), 1);
+	Division div3 = Division(ARMORED_DIV, (Vector2){100,0}, std::string("Div C"), 0);
+	div3.addRegiment(INF,7);
 	div3.addRegiment(INF,7);
 	div3.addRegiment(ARMOR, 2);
-	div3.setTarget((Vector2){50,-29});
+	div3.setTarget((Vector2){-200,0});
 
 	Division div4 = Division(INFANTRY_DIV, (Vector2){-100,100}, std::string("Div C"), 1);
 	div4.addRegiment(INF,7);
